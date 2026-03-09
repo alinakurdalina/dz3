@@ -1,104 +1,61 @@
-import math
-from statistics import median
+def add(a, b): return a + b
 
-def add(a, b):
-    return a + b
 
-def subtract(a, b):
-    return a - b
+def sub(a, b): return a - b
 
-def multiply(a, b):
-    return a * b
 
-def divide(a, b):
-    if b == 0:
-        raise ZeroDivisionError("Деление на ноль невозможно!")
+def mul(a, b): return a * b
+
+
+def div(a, b):
+    if b == 0: raise ZeroDivisionError("На ноль делить нельзя")
     return a / b
 
-def power(a, b):
-    return a ** b
 
-def factorial(n):
-    if not isinstance(n, int) or n < 0:
-        raise ValueError("Факториал определен только для неотрицательных целых чисел!")
-    return math.factorial(n)
+def pow_(a, b): return a ** b
 
-def square_root(n):
-    if n < 0:
-        raise ValueError("Нельзя извлечь корень из отрицательного числа!")
-    return math.sqrt(n)
 
-def calculate_median(numbers):
+def fact(n):
+    if not isinstance(n, int) or n < 0: raise ValueError("Факториал только для целых чисел >=0")
+    return 1 if n == 0 else n * fact(n - 1)
+
+
+def sqrt_(n):
+    if n < 0: raise ValueError("Корень из отрицательного числа")
+    return n ** 0.5
+
+
+def avg(nums):
+    if not nums: raise ValueError("Список пуст")
+    for x in nums:
+        if not isinstance(x, (int, float)): raise TypeError("Все элементы должны быть числами")
+    return sum(nums) / len(nums)
+
+
+ops = {
+    '1': ('+', add, 2), '2': ('-', sub, 2), '3': ('*', mul, 2), '4': ('/', div, 2),
+    '5': ('^', pow_, 2), '6': ('!', fact, 1), '7': ('√', sqrt_, 1), '8': ('avg', avg, 'list')
+}
+
+while True:
+    print("\n1.+ 2.- 3.* 4./ 5.^ 6.! 7.√ 8.avg 0.exit")
+    c = input("Выбор: ").strip()
+    if c in ('0', 'exit'): break
+    if c not in ops: print("Ошибка"); continue
+
     try:
-        numbers = list(map(float, numbers.split()))
-        return median(numbers)
-    except ValueError:
-        raise ValueError("Введите числа через пробел!")
-
-def get_number(prompt):
-    while True:
-        try:
-            return float(input(prompt))
-        except ValueError:
-            print("Ошибка: введите число!")
-
-def main():
-    operations = {
-        1: add,
-        2: subtract,
-        3: multiply,
-        4: divide,
-        5: power,
-        6: factorial,
-        7: square_root,
-        8: calculate_median
-    }
-
-    while True:
-        print("\nДоступные операции:")
-        print("1. Сложение")
-        print("2. Вычитание")
-        print("3. Умножение")
-        print("4. Деление")
-        print("5. Возведение в степень")
-        print("6. Факториал")
-        print("7. Квадратный корень")
-        print("8. Медиана")
-        print("exit - выход")
-
-        choice = input("\nОперация: ")
-
-        if choice.lower() == "exit":
-            print("Программа завершена")
-            break
-
-        try:
-            choice = int(choice)
-            if choice not in operations:
-                raise ValueError("Неверная операция!")
-
-            if choice in [1, 2, 3, 4, 5]:
-                a = get_number("Число 1: ")
-                b = get_number("Число 2: ")
-                result = operations[choice](a, b)
-
-            elif choice == 6:
-                n = int(get_number("Число: "))
-                result = operations[choice](n)
-
-            elif choice == 7:
-                n = get_number("Число: ")
-                result = operations[choice](n)
-
-            elif choice == 8:
-                numbers = input("Введите числа через пробел: ")
-                result = operations[choice](numbers)
-
-            print(f">>> {result}")
-
-        except Exception as e:
-            print(f"Ошибка: {str(e)}")
-
-
-if __name__ == "__main__":
-    main()
+        if c == '8':
+            nums = [float(x) for x in input("Числа через пробел: ").split()]
+            print("=", avg(nums))
+        elif c == '6':
+            n = int(input("Число: "))
+            print("=", fact(n))
+        elif c == '7':
+            n = float(input("Число: "))
+            print("=", sqrt_(n))
+        else:
+            a = float(input("a: "))
+            b = float(input("b: "))
+            print("=", ops[c][1](a, b))
+    except Exception as e:
+        print("Ошибка:", e)
