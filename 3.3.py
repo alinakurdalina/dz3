@@ -1,4 +1,4 @@
-def function_name(search: str, status: bool, *args: tuple, **kwargs: dict) -> list | str:
+def function(search: str, status: bool, *args: tuple, **kwargs: dict) -> list | str:
 
     result: list = []
     result_2: str = ""
@@ -21,8 +21,9 @@ def function_name(search: str, status: bool, *args: tuple, **kwargs: dict) -> li
         raise ValueError("Error for search")
 
 
-print(function_name("args", True, 1, 2, "Три", 4, "Пять"))
+print(function("args", True, 1, 2, "Три", 4, "Пять"))
 
-print(function_name("args", False, 1, 2, "Три", 4, "Пять"))
+print(function("args", False, 1, 2, "Три", 4, "Пять"))
 
-print("Компьютер:", function_name("kwargs", True, процессор="Intel", память="16GB", диск="SSD"))
+print("Компьютер:", function("kwargs", True, процессор="Intel", память="16GB", диск="SSD"))
+
