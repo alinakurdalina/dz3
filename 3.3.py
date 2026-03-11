@@ -1,13 +1,6 @@
-from typing import List, Any, Union
+def function_name(search: str, status: bool, *args: tuple, **kwargs: dict) -> list | str:
 
-def function_name(
-    search: str,
-    status: bool,
-    *args: Any,
-    **kwargs: Any
-) -> Union[List[int], str]:
-
-    result: List[int] = []
+    result: list = []
     result_2: str = ""
 
     if search == "args":
@@ -26,3 +19,10 @@ def function_name(
         return result_2
     else:
         raise ValueError("Error for search")
+
+
+print(function_name("args", True, 1, 2, "Три", 4, "Пять"))
+
+print(function_name("args", False, 1, 2, "Три", 4, "Пять"))
+
+print("Компьютер:", function_name("kwargs", True, процессор="Intel", память="16GB", диск="SSD"))
