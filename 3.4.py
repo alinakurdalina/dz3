@@ -35,10 +35,22 @@ gpu2 = GraphicsCard(
     boost_clock=2491
 )
 
+gpu3 = GraphicsCard(
+    name="GT 430",
+    memory=1,
+    memory_type="GDDR3",
+    base_clock=700,
+    boost_clock=700
+)
+
 print(gpu1)
 print(f"Актуальная: {gpu1.is_modern()}")
 print(f"Индекс производительности: {gpu1.get_performance_index()}\n")
 
 print(gpu2)
 print(f"Актуальная: {gpu2.is_modern()}")
-print(f"Индекс производительности: {gpu2.get_performance_index()}")
+print(f"Индекс производительности: {gpu2.get_performance_index()}\n")
+
+print(gpu3)
+print(f"Актуальная: {gpu3.is_modern()}")
+print(f"Индекс производительности: {gpu3.get_performance_index()}")
